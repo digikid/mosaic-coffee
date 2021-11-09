@@ -1,0 +1,90 @@
+@keyframes bouncey {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.tippy {
+  &-box {
+    padding: 7px;
+
+    &.is-animated {
+      animation: fadeInUp .3s ease-in-out forwards, bouncey 2s linear infinite;
+    }
+
+    &.is-hiding {
+      &[data-state='hidden'] {
+        opacity: 1;
+        animation: fadeOut .25s ease-in-out forwards, bouncey 2s linear infinite;
+      }
+    }
+
+    &[data-theme~='white'] {
+      color: $text;
+      box-shadow: 0 0 20px 4px rgba(154, 161, 177, 0.15), 0 4px 80px -8px rgba(36, 40, 47, 0.25), 0 4px 4px -2px rgba(91, 94, 105, 0.15);
+      background-color: $white;
+
+      &[data-placement^='top'] > .tippy-arrow:before {
+        border-top-color: $white;
+      }
+
+      &[data-placement^='bottom'] > .tippy-arrow:before {
+        border-bottom-color: $white;
+      }
+
+      &[data-placement^='left'] > .tippy-arrow:before {
+        border-left-color: $white;
+      }
+
+      &[data-placement^='right'] > .tippy-arrow:before {
+        border-right-color: $white;
+      }
+
+      & > .tippy-backdrop {
+        background-color: $white;
+      }
+
+      & > .tippy-svg-arrow {
+        fill: $white;
+      }
+    }
+
+    &[data-theme~='green'] {
+      color: $white;
+      box-shadow: 0 0 20px 4px rgba(154, 161, 177, 0.15), 0 4px 80px -8px rgba(36, 40, 47, 0.25), 0 4px 4px -2px rgba(91, 94, 105, 0.15);
+      background-color: $green;
+
+      &[data-placement^='top'] > .tippy-arrow:before {
+        border-top-color: $green;
+      }
+
+      &[data-placement^='bottom'] > .tippy-arrow:before {
+        border-bottom-color: $green;
+      }
+
+      &[data-placement^='left'] > .tippy-arrow:before {
+        border-left-color: $green;
+      }
+
+      &[data-placement^='right'] > .tippy-arrow:before {
+        border-right-color: $green;
+      }
+
+      & > .tippy-backdrop {
+        background-color: $green;
+      }
+
+      & > .tippy-svg-arrow {
+        fill: $green;
+      }
+    }
+  }
+}

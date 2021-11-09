@@ -1,0 +1,25 @@
+#title {
+  position: relative;
+  font-size: 42px;
+  line-height: 1.35;
+  font-weight: bold;
+
+  @include ms(lg) {
+    font-size: 36px;
+  }
+
+  @include mo(xs) {
+    font-size: 32px;
+  }
+}
+
+%input {
+  width: 100%;
+  background: $gray-200;
+  border: 2px solid $gray-200;
+  box-shadow: none !important;
+  outline: 0;
+  padding: 18px 24px;
+  border-radius: 6px;
+  @include transition(border-color, background-color);
+}

@@ -1,0 +1,10 @@
+@import '../config';
+
+:root {
+  --adp-color-current-date: $blue;
+  --adp-font-family: #{$font-family};
+}
+
+.air-datepicker-body--day-name {
+  color: $orange;
+}

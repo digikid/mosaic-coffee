@@ -1,0 +1,27 @@
+@import '~normalize.css/normalize.css';
+
+@import '~animate.css/animate.css';
+@import '~vue-toastification/dist/index.css';
+@import '~air-datepicker/air-datepicker.css';
+
+@import 'vendor/bootstrap';
+@import 'vendor/simplebar';
+@import 'vendor/tippy';
+@import 'vendor/toast';
+@import 'vendor/swiper';
+@import 'vendor/quill';
+@import 'vendor/datepicker';
+
+@import 'layout/fonts';
+@import 'layout/global';
+@import 'layout/wysiwyg';
+
+@import '~bootstrap/scss/_functions';
+@import '~bootstrap/scss/_variables';
+@import "~bootstrap/scss/_mixins";
+@import "~bootstrap/scss/_root";
+@import "~bootstrap/scss/_grid";
+@import "~bootstrap/scss/_tables";
+@import "~bootstrap/scss/_transitions";
+@import "~bootstrap/scss/_utilities";
+

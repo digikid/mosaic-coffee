@@ -1,0 +1,39 @@
+@import '~swiper/swiper';
+@import '~swiper/components/navigation/navigation';
+@import '~swiper/components/pagination/pagination';
+@import '~swiper/components/lazy/lazy';
+
+.swiper {
+  &-container {
+    padding-bottom: 50px;
+
+    @include mo(xs) {
+      margin-left: -$gutter;
+      margin-right: -$gutter;
+      padding-left: $gutter;
+      padding-right: $gutter;
+    }
+  }
+
+  &-button {
+    &-prev,
+    &-next {
+      display: none;
+    }
+  }
+
+  &-pagination {
+    bottom: 0!important;
+
+    &-bullet {
+      width: 12px;
+      height: 12px;
+      background-color: $gray-300;
+      opacity: 1;
+
+      &-active {
+        background-color: $orange;
+      }
+    }
+  }
+}

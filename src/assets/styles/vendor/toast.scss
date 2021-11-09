@@ -1,0 +1,32 @@
+.Vue-Toastification {
+  &__toast {
+    color: $white;
+    font-weight: 600;
+    border-radius: 6px;
+    box-shadow: 0 3px 15px 0 rgba($black, .3);
+    padding: 20px 40px 20px 24px;
+
+    &--default,
+    &--info {
+      background-color: $blue;
+    }
+
+    &--success {
+      background-color: $green;
+    }
+
+    &--error {
+      background-color: $red;
+    }
+
+    &--warning {
+      background-color: $orange;
+    }
+  }
+
+  &__close-button {
+    position: absolute;
+    top: 2px;
+    right: 7px;
+  }
+}

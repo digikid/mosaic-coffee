@@ -1,0 +1,16 @@
+@import '../partials';
+
+$container-max-widths: $containers;
+$grid-gutter-width: $gutter * 2;
+
+$font-family-base: $font-family;
+
+@import '~bootstrap/scss/_functions';
+@import '~bootstrap/scss/_variables';
+@import "~bootstrap/scss/_mixins";
+@import "~bootstrap/scss/_root";
+@import "~bootstrap/scss/_reboot";
+@import "~bootstrap/scss/_grid";
+@import "~bootstrap/scss/_tables";
+@import "~bootstrap/scss/_transitions";
+@import "~bootstrap/scss/_utilities";
