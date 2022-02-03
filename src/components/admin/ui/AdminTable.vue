@@ -89,7 +89,7 @@ export default {
       overflow: hidden;
 
       &:first-child {
-        width: 50px;
+        width: 65px;
       }
 
       p {
