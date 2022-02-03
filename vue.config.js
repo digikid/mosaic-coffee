@@ -1,4 +1,5 @@
 module.exports = {
+  publicPath: process.env.NODE_ENV === 'production' ? '/promo-qr-cup/' : '/',
   pages: {
     index: {
       entry: 'src/main.js',
