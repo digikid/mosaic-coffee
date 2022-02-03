@@ -17,11 +17,12 @@
           v-for="(item, i) in pages[current]"
           :key="item.id"
           :item="pages[current][i]"
-          :index="i + current * limit"
+          :index="index(i)"
         />
       </AdminTable>
       <AdminPagination
         :items="pages"
+        :links="links"
         :current="current"
         @to="to"
         @next="next"

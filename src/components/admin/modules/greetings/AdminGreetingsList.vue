@@ -8,12 +8,13 @@
           v-for="(item, i) in pages[current]"
           :key="item.id"
           :item="pages[current][i]"
-          :index="i"
+          :index="index(i)"
           v-model="lastEditedId"
         />
       </AdminTable>
       <AdminPagination
         :items="pages"
+        :links="links"
         :current="current"
         @to="to"
         @next="next"

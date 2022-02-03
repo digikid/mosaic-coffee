@@ -1,6 +1,17 @@
 <template>
-  <nav class="pagination" v-if="items.length > 1">
+  <nav class="pagination" v-if="links.length > 1">
     <ul class="pagination__list">
+      <li
+        :class="[
+          'pagination__item',
+          'pagination__item--back',
+          {
+            'is-disabled': !current
+          }
+        ]"
+      >
+        <a href="#" @click.prevent="$emit('to', 0)"> &lt;&lt; </a>
+      </li>
       <li
         :class="[
           'pagination__item',
@@ -14,17 +25,17 @@
       </li>
       <li
         class="pagination__item"
-        v-for="(item, i) in items"
-        :key="i"
+        v-for="link in links"
+        :key="link.index"
         :class="[
           'pagination__item',
           {
-            'is-active': i === current
+            'is-active': link.index === current
           }
         ]"
       >
-        <a href="#" @click.prevent="$emit('to', i)">
-          {{ i + 1 }}
+        <a href="#" @click.prevent="$emit('to', link.index)">
+          {{ link.index + 1 }}
         </a>
       </li>
       <li
@@ -38,6 +49,19 @@
       >
         <a href="#" @click.prevent="$emit('next')"> &gt; </a>
       </li>
+      <li
+        :class="[
+          'pagination__item',
+          'pagination__item--end',
+          {
+            'is-disabled': current === items.length - 1
+          }
+        ]"
+      >
+        <a href="#" @click.prevent="$emit('to', items.length - 1)">
+          &gt;&gt;
+        </a>
+      </li>
     </ul>
   </nav>
 </template>
@@ -50,11 +74,16 @@ export default {
       type: Array,
       required: true
     },
+    links: {
+      type: Array,
+      required: true
+    },
     current: {
-      type: Number
+      type: Number,
+      required: true
     }
   },
-  emits: ['to', 'prev', 'next']
+  emits: ['to', 'prev', 'next', 'start', 'end']
 }
 </script>
 
