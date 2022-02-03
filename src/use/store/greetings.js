@@ -7,7 +7,9 @@ export const useGreetings = () => {
   const store = useStore()
 
   const random = computed(() => {
-    const items = store.getters['greetings/items']
+    const items = store.getters['greetings/items'].filter(
+      ({ active }) => active
+    )
 
     if (!items.length) return ''
 
