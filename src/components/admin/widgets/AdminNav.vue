@@ -160,10 +160,10 @@ export default {
         justify-content: center;
         width: 20px;
         height: 20px;
-        font-size: 11px;
+        font-size: 9px;
         font-weight: normal;
         font-style: normal;
-        line-height: 1;
+        line-height: 20px;
         background-color: $green;
         color: $white;
         border-radius: 50%;
