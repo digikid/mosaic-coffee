@@ -1,7 +1,7 @@
 <div align="center">
   <img alt="Mosaic Coffee" src="https://github.com/digikid/mosaic-coffee/raw/main/logo.png" />
   <br><br>
-  <p>Official promo page for Mosaic Coffee company<br><b><a href="https://свежаяобжарка.рф/">свежаяобжарка.рф</a></b></p>
+  <p>Official promo page for «Mosaic Coffee» company.<br><b><a href="https://свежаяобжарка.рф/">свежаяобжарка.рф</a></b></p>
 </div>
 
 ## Init
@@ -21,16 +21,16 @@ npm run build
 
 ### Admin
 
-**Login:**
+**Login:**  
 admin@mosaic-coffee.ru
 
-**Password:**
+**Password:**  
 zzYk@xxw@MdoFIk1Ty
 
 ### User
 
-**Login:**
+**Login:**  
 guest@mosaic-coffee.ru
 
-**Password:**
+**Password:**  
 8Be!dlTlEl6Pc$grQq
