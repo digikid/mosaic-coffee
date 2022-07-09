@@ -1,36 +1,36 @@
-# mosaic-coffee
+<div align="center">
+  <img alt="Mosaic Coffee" src="https://github.com/digikid/mosaic-coffee/raw/main/logo.png" />
+  <br><br>
+  <p>Official promo page for Mosaic Coffee company<br><b><a href="https://свежаяобжарка.рф/">свежаяобжарка.рф</a></b></p>
+</div>
 
-Промо-страница для сети кофеен [Mosaic Coffee](https://xn--80aaacdshc1bybzad0q.xn--p1ai/).
-
-## Инициализация и запуск:
+## Init
 ```
 npm i
 npm run serve
 ```
 
-## Сборка проекта:
+## Build
 ```
 npm run build
 ```
 
-## Демо
+## Demo
 
 [https://mosaic-coffee.web.app/](https://mosaic-coffee.web.app/)
 
-### Доступы
+### Admin
 
-#### Администратор
-
-Логин:
+**Login:**
 admin@mosaic-coffee.ru
 
-Пароль:
+**Password:**
 zzYk@xxw@MdoFIk1Ty
 
-#### Гость
+### User
 
-Логин:
+**Login:**
 guest@mosaic-coffee.ru
 
-Пароль:
+**Password:**
 8Be!dlTlEl6Pc$grQq
