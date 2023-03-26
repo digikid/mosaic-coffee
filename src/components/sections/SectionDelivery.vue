@@ -136,7 +136,6 @@ export default {
     margin-top: 42px;
 
     .btn {
-      width: 200px;
       font-size: 20px;
       text-transform: uppercase;
       background: linear-gradient(to right, $red, $yellow);

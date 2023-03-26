@@ -4,8 +4,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "deploy": "node run deploy"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "air-datepicker": "^3.0.1",
