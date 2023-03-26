@@ -1,5 +1,5 @@
 <template>
-  <AppSection id="settings" title="Настройки">
+  <AdminSection id="settings" title="Настройки">
     <AppForm>
       <AdminTabs>
         <AdminTab title="Основные" id="main">
@@ -32,14 +32,14 @@
         />
       </template>
     </AppForm>
-  </AppSection>
+  </AdminSection>
 </template>
 
 <script>
 import { ref } from 'vue'
 import { useSettings } from '@/use/store/settings'
 
-import AppSection from '@/components/ui/AppSection'
+import AdminSection from '@/components/admin/ui/AdminSection'
 import AdminTabs from '@/components/admin/ui/tabs/AdminTabs'
 import AdminTab from '@/components/admin/ui/tabs/AdminTab'
 import AppForm from '@/components/ui/AppForm'
@@ -66,7 +66,7 @@ export default {
     AppForm,
     AdminTab,
     AdminTabs,
-    AppSection
+    AdminSection
   },
   setup() {
     const isSaveEnabled = ref()
@@ -103,5 +103,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss"></style>

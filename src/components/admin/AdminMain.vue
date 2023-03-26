@@ -20,20 +20,5 @@ export default {
   @media screen and (max-width: 1560px) {
     padding-left: 0;
   }
-
-  .section {
-    &__header {
-      .section__wrapper {
-        margin-bottom: 42px;
-
-        @include ml(sm) {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin-bottom: 42px;
-        }
-      }
-    }
-  }
 }
 </style>

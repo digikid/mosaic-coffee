@@ -2,7 +2,6 @@ import { computed } from 'vue'
 import { useStore } from 'vuex'
 
 import { manageStoreHooks } from '@/utils/store/hooks'
-
 import { sortByDate } from '@/utils/sort'
 
 export const useEvents = () => {
@@ -15,7 +14,7 @@ export const useEvents = () => {
   const published = computed(() => {
     const items = [...store.getters[`events/items`]] || []
 
-    let result = items.filter(item => item.active)
+    let result = items.filter(({ active }) => active)
 
     if (param('EVENTS_SORT_BY_DATE')) {
       result = sortByDate(result, true)

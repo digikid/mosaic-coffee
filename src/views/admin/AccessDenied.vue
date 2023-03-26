@@ -1,20 +1,18 @@
 <template>
-  <AppSection title="Доступ запрещен" id="denied">
+  <AdminSection title="Доступ запрещен" id="denied">
     <p>Доступ к этой странице запрещен.</p>
     <p>Если вы хотите получить доступ, обратитесь к администратору сайта.</p>
     <br />
     <AppButton text="Вернуться назад" @click="$router.go(-1)" />
-  </AppSection>
+  </AdminSection>
 </template>
 
 <script>
-import AppSection from '@/components/ui/AppSection'
+import AdminSection from '@/components/admin/ui/AdminSection'
 import AppButton from '@/components/ui/AppButton'
 
 export default {
   name: 'AccessDenied',
-  components: { AppButton, AppSection }
+  components: { AppButton, AdminSection }
 }
 </script>
-
-<style lang="scss"></style>

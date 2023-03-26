@@ -10,5 +10,3 @@ export default {
   components: { TheMain }
 }
 </script>
-
-<style lang="scss"></style>

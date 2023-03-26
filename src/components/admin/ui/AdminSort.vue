@@ -33,11 +33,3 @@ export default {
   emits: ['update:modelValue']
 }
 </script>
-
-<style lang="scss">
-.form--sort {
-  width: 375px;
-  max-width: 100%;
-  margin-bottom: 42px;
-}
-</style>

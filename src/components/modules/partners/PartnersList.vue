@@ -56,7 +56,7 @@ export default {
   name: 'PartnersList',
   components: { AppEmpty, PartnersItem, Swiper, SwiperSlide },
   setup() {
-    const { items } = usePartners()
+    const { published: items } = usePartners()
     const { param } = useSettings()
 
     return {

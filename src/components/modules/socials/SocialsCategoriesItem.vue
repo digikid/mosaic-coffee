@@ -25,7 +25,7 @@ export default {
   },
   setup(props) {
     const { param } = useSettings()
-    const { items: socials, getByCategory } = useSocials()
+    const { published: socials, getByCategory } = useSocials()
 
     const items = computed(() =>
       socials.value.filter(({ category }) => category === props.category.value)

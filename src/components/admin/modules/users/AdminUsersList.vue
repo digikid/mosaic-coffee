@@ -31,6 +31,8 @@
 import { useUsers } from '@/use/store/users'
 import { usePagination } from '@/use/components/pagination'
 
+import paginatedList from '@/mixins/paginatedList'
+
 import AdminTable from '@/components/admin/ui/AdminTable'
 import AdminUsersItem from '@/components/admin/modules/users/AdminUsersItem'
 import AdminPagination from '@/components/admin/ui/AdminPagination'
@@ -38,12 +40,13 @@ import AdminPagination from '@/components/admin/ui/AdminPagination'
 export default {
   name: 'AdminUsersList',
   components: { AdminPagination, AdminUsersItem, AdminTable },
-  setup() {
+  mixins: [paginatedList],
+  setup(props) {
     const { items } = useUsers()
 
     return {
       items,
-      ...usePagination(items)
+      ...usePagination(items, props)
     }
   }
 }

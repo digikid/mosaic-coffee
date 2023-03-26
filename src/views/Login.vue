@@ -45,7 +45,6 @@
               type="password"
               class="password__input"
               spellcheck="false"
-              maxlength="18"
               placeholder="••••••••••••"
               v-model="password"
             />

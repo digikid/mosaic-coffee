@@ -31,6 +31,8 @@ const MONTHS = [
   'декабря'
 ]
 
+export const getTimestamp = () => new Date().toISOString()
+
 export const getDay = date => date.getDate()
 export const getYear = date => date.getFullYear()
 export const getMonth = date => MONTHS[date.getMonth()]

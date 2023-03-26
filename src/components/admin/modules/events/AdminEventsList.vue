@@ -1,7 +1,6 @@
 <template>
   <div class="admin-events">
     <div class="admin-events__list" v-if="items.length">
-      <AdminSort :options="sortOptions" v-model="sort" />
       <AdminTable
         :headers="[
           '#',
@@ -40,24 +39,29 @@
 </template>
 
 <script>
-import { ref, computed, watch } from 'vue'
+import { computed } from 'vue'
 import { useEvents } from '@/use/store/events'
-import { useSettings } from '@/use/store/settings'
 import { usePagination } from '@/use/components/pagination'
-
 import { sortByDate } from '@/utils/sort'
+
+import paginatedList from '@/mixins/paginatedList'
 
 import AdminTable from '@/components/admin/ui/AdminTable'
 import AdminEventsItem from '@/components/admin/modules/events/AdminEventsItem'
 import AdminPagination from '@/components/admin/ui/AdminPagination'
-import AdminSort from '@/components/admin/ui/AdminSort'
 
 export default {
   name: 'AdminEventsList',
-  components: { AdminSort, AdminPagination, AdminEventsItem, AdminTable },
-  setup() {
+  components: { AdminPagination, AdminEventsItem, AdminTable },
+  mixins: [paginatedList],
+  props: {
+    sort: {
+      type: String,
+      required: true
+    }
+  },
+  setup(props) {
     const { items } = useEvents()
-    const { param, get: getParam, update: updateParam } = useSettings()
 
     const sortedItems = computed(() => {
       if (!items.value || !items.value.length) {
@@ -66,54 +70,24 @@ export default {
 
       let result = items.value.concat()
 
-      if (sort.value === 'created-desc') {
+      if (props.sort === 'created-desc') {
         result = result.reverse()
       }
 
-      if (sort.value === 'date-asc') {
+      if (props.sort === 'date-asc') {
         result = sortByDate(result)
       }
 
-      if (sort.value === 'date-desc') {
+      if (props.sort === 'date-desc') {
         result = sortByDate(result, true)
       }
 
       return result
     })
 
-    const sort = ref(param('ADMIN_EVENTS_SORT_BY_DATE'))
-
-    const sortOptions = ref([
-      {
-        value: 'created-asc',
-        title: 'По дате создания (сначала новые)'
-      },
-      {
-        value: 'created-desc',
-        title: 'По дате создания (сначала старые)'
-      },
-      {
-        value: 'date-asc',
-        title: 'По дате проведения (сначала новые)'
-      },
-      {
-        value: 'date-desc',
-        title: 'По дате проведения (сначала старые)'
-      }
-    ])
-
-    watch(sort, async value => {
-      await updateParam({
-        ...getParam('ADMIN_EVENTS_SORT_BY_DATE'),
-        value
-      })
-    })
-
     return {
       items,
-      sort,
-      sortOptions,
-      ...usePagination(sortedItems)
+      ...usePagination(sortedItems, props)
     }
   }
 }

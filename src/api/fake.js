@@ -1,4 +1,4 @@
-export const fakeApi = (value = true, delay = 500, debug) =>
+export const fakeApi = (value = true, delay = 500, debug = false) =>
   new Promise(resolve => {
     const apiTimeout = setTimeout(() => {
       if (debug) {

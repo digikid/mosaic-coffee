@@ -23,9 +23,14 @@ const remove = (state, id) => {
   }
 }
 
+const removeAll = state => {
+  state.items = []
+}
+
 export const manageStoreMutations = () => ({
   load,
   add,
   update,
-  remove
+  remove,
+  removeAll
 })

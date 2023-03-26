@@ -1,51 +1,21 @@
 <template>
   <section
-    :class="[
-      'section',
-      {
-        [`section--admin`]: isAdmin
-      },
-      {
-        [`section--${id}`]: !isAdmin && id
-      },
-      {
-        [`section--${layout}`]: layout
-      }
-    ]"
+    :class="className"
     :id="id ? `section-${id}` : null"
     :style="bg ? `background-image: url(${bg});` : null"
   >
     <slot name="outside" v-if="$slots.outside"></slot>
-    <div
-      v-if="title || $slots.intro || $slots.actions || back"
-      class="section__header"
-    >
+    <div v-if="title || $slots.intro" class="section__header">
       <div class="section__wrapper container">
         <div class="section__title" v-if="title">{{ title }}</div>
         <div class="section__intro" v-if="$slots.intro">
           <slot name="intro"></slot>
         </div>
-        <div class="section__actions" v-if="$slots.actions || back">
-          <slot name="actions" />
-          <AppButton
-            v-if="back"
-            color="gray"
-            text="← Назад"
-            @click="$router.go(-1)"
-          />
-        </div>
       </div>
     </div>
-    <div
-      :class="[
-        'section__content',
-        {
-          wysiwyg: wysiwyg
-        }
-      ]"
-    >
-      <div :class="['section__wrapper', `container${fluid ? '-fluid' : ''}`]">
-        <slot></slot>
+    <div :class="contentClassName">
+      <div :class="wrapperClassName">
+        <slot />
       </div>
     </div>
   </section>
@@ -53,13 +23,8 @@
 
 <script>
 import { computed } from 'vue'
-import { useRoute } from 'vue-router'
-
-import AppButton from '@/components/ui/AppButton'
-
 export default {
   name: 'AppSection',
-  components: { AppButton },
   props: {
     id: {
       type: String,
@@ -69,15 +34,53 @@ export default {
     layout: String,
     bg: String,
     fluid: Boolean,
-    back: Boolean,
     wysiwyg: Boolean
   },
-  setup() {
-    const route = useRoute()
-    const isAdmin = computed(() => route.meta.layout === 'admin')
+  setup(props) {
+    const className = computed(() => {
+      const classNames = ['section']
+
+      if (props.id) {
+        classNames.push(`section--${props.id}`)
+      }
+
+      if (props.layout) {
+        classNames.push(`section--${props.layout}`)
+      }
+
+      if (props.wysiwyg) {
+        classNames.push(`section--wysiwyg`)
+      }
+
+      return classNames.join(' ')
+    })
+
+    const contentClassName = computed(() => {
+      const classNames = ['section__content']
+
+      if (props.wysiwyg) {
+        classNames.push('wysiwyg')
+      }
+
+      return classNames.join(' ')
+    })
+
+    const wrapperClassName = computed(() => {
+      const classNames = ['section__wrapper']
+
+      if (props.fluid) {
+        classNames.push('container-fluid')
+      } else {
+        classNames.push('container')
+      }
+
+      return classNames.join(' ')
+    })
 
     return {
-      isAdmin
+      className,
+      contentClassName,
+      wrapperClassName
     }
   }
 }
@@ -98,12 +101,6 @@ export default {
   &__title {
     @extend #title;
     margin-bottom: 0;
-  }
-
-  &__actions {
-    @include ms(md) {
-      margin-top: 18px;
-    }
   }
 
   &__intro {

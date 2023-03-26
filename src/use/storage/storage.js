@@ -1,5 +1,5 @@
 import { storage } from '@/api/storage'
-import { extractStoragePath } from '@/utils/format/path'
+import { extractStoragePath } from '@//utils/storage'
 
 export const useStorage = () => {
   const isFileExists = async (path, fileName) => {

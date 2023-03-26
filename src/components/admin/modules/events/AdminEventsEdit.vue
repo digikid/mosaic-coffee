@@ -153,7 +153,7 @@ import AirDatepicker from 'air-datepicker'
 import { ref, onMounted } from 'vue'
 import { useAdminEditForm } from '@/use/forms/admin/edit'
 
-import { getLocaleDate } from '@/utils/format/date'
+import { getLocaleDate } from '@/utils/date'
 
 import AppForm from '@/components/ui/AppForm'
 import AppButton from '@/components/ui/AppButton'
@@ -204,5 +204,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss"></style>
