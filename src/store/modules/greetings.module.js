@@ -9,7 +9,9 @@ export default {
       items: [],
       empty: {
         active: true,
-        text: ''
+        text: '',
+        startTime: '',
+        endTime: ''
       }
     }
   },

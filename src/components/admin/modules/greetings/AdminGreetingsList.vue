@@ -2,7 +2,14 @@
   <div class="admin-greetings">
     <div class="admin-greetings__list" v-if="items.length">
       <AdminTable
-        :headers="['#', 'Текст приветствия', 'Активность', 'Действия']"
+        :headers="[
+          '#',
+          'Текст приветствия',
+          'Время начала',
+          'Время окончания',
+          'Активность',
+          'Действия'
+        ]"
       >
         <AdminGreetingsItem
           v-for="(item, i) in pages[current]"
@@ -36,14 +43,21 @@ import { ref } from 'vue'
 import { useGreetings } from '@/use/store/greetings'
 import { usePagination } from '@/use/components/pagination'
 
+import paginatedList from '@/mixins/paginatedList'
+
 import AdminTable from '@/components/admin/ui/AdminTable'
 import AdminGreetingsItem from '@/components/admin/modules/greetings/AdminGreetingsItem'
 import AdminPagination from '@/components/admin/ui/AdminPagination'
 
 export default {
   name: 'AdminGreetingsList',
-  components: { AdminPagination, AdminGreetingsItem, AdminTable },
-  setup() {
+  components: {
+    AdminPagination,
+    AdminGreetingsItem,
+    AdminTable
+  },
+  mixins: [paginatedList],
+  setup(props) {
     const { items } = useGreetings()
 
     const lastEditedId = ref()
@@ -51,7 +65,7 @@ export default {
     return {
       items,
       lastEditedId,
-      ...usePagination(items)
+      ...usePagination(items, props)
     }
   }
 }
@@ -66,6 +80,16 @@ export default {
       text-align: center;
       width: 150px;
     }
+
+    &:nth-last-child(-n + 4),
+    &:nth-last-child(-n + 3) {
+      text-align: center;
+      width: 120px;
+    }
+  }
+
+  td:nth-child(2) {
+    white-space: normal;
   }
 }
 </style>

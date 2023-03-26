@@ -34,6 +34,8 @@
 import { useSocials } from '@/use/store/socials'
 import { usePagination } from '@/use/components/pagination'
 
+import paginatedList from '@/mixins/paginatedList'
+
 import AdminTable from '@/components/admin/ui/AdminTable'
 import AdminSocialsItem from '@/components/admin/modules/socials/AdminSocialsItem'
 import AdminPagination from '@/components/admin/ui/AdminPagination'
@@ -41,12 +43,13 @@ import AdminPagination from '@/components/admin/ui/AdminPagination'
 export default {
   name: 'AdminSocialsList',
   components: { AdminPagination, AdminSocialsItem, AdminTable },
-  setup() {
+  mixins: [paginatedList],
+  setup(props) {
     const { items } = useSocials()
 
     return {
       items,
-      ...usePagination(items)
+      ...usePagination(items, props)
     }
   }
 }

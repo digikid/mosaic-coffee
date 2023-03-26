@@ -3,8 +3,10 @@ import { message } from '@/utils/system/message'
 
 export const toast = useToast()
 
-export const success = code => toast.success(message(code))
+export const success = (code, module = '') =>
+  toast.success(message(code, module))
 
-export const error = code => toast.error(message(code))
+export const error = (code, module = '') => toast.error(message(code, module))
 
-export const warning = code => toast.warning(message(code))
+export const warning = (code, module = '') =>
+  toast.warning(message(code, module))

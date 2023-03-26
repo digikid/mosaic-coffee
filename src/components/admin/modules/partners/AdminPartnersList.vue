@@ -33,6 +33,8 @@
 import { usePartners } from '@/use/store/partners'
 import { usePagination } from '@/use/components/pagination'
 
+import paginatedList from '@/mixins/paginatedList'
+
 import AdminTable from '@/components/admin/ui/AdminTable'
 import AdminPartnersItem from '@/components/admin/modules/partners/AdminPartnersItem'
 import AdminPagination from '@/components/admin/ui/AdminPagination'
@@ -40,12 +42,13 @@ import AdminPagination from '@/components/admin/ui/AdminPagination'
 export default {
   name: 'AdminPartnersList',
   components: { AdminPagination, AdminPartnersItem, AdminTable },
-  setup() {
+  mixins: [paginatedList],
+  setup(props) {
     const { items } = usePartners()
 
     return {
       items,
-      ...usePagination(items)
+      ...usePagination(items, props)
     }
   }
 }

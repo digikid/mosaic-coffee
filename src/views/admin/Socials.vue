@@ -1,22 +1,28 @@
 <template>
-  <AppSection title="Соцсети" id="socials">
-    <AdminSocialsList />
+  <AdminSection title="Соцсети" id="socials">
+    <template #default="{ limit, searchQuery }">
+      <AdminSocialsList :limit="limit" :searchQuery="searchQuery" />
+    </template>
     <template #actions>
       <AppButton color="green" text="+ Добавить" @click="create" />
     </template>
-  </AppSection>
+  </AdminSection>
 </template>
 
 <script>
 import { useSocials } from '@/use/store/socials'
 
-import AppSection from '@/components/ui/AppSection'
+import AdminSection from '@/components/admin/ui/AdminSection'
 import AppButton from '@/components/ui/AppButton'
 import AdminSocialsList from '@/components/admin/modules/socials/AdminSocialsList'
 
 export default {
   name: 'Socials',
-  components: { AdminSocialsList, AppButton, AppSection },
+  components: {
+    AdminSocialsList,
+    AppButton,
+    AdminSection
+  },
   setup() {
     const { create } = useSocials()
 
@@ -26,5 +32,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss"></style>

@@ -31,6 +31,8 @@
 import { useContacts } from '@/use/store/contacts'
 import { usePagination } from '@/use/components/pagination'
 
+import paginatedList from '@/mixins/paginatedList'
+
 import AdminTable from '@/components/admin/ui/AdminTable'
 import AdminContactsItem from '@/components/admin/modules/contacts/AdminContactsItem'
 import AdminPagination from '@/components/admin/ui/AdminPagination'
@@ -38,12 +40,13 @@ import AdminPagination from '@/components/admin/ui/AdminPagination'
 export default {
   name: 'AdminContactsList',
   components: { AdminPagination, AdminContactsItem, AdminTable },
-  setup() {
+  mixins: [paginatedList],
+  setup(props) {
     const { items } = useContacts()
 
     return {
       items,
-      ...usePagination(items)
+      ...usePagination(items, props)
     }
   }
 }

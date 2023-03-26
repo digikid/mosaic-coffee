@@ -12,19 +12,12 @@
 </template>
 
 <script>
-import { v4 as uid } from 'uuid'
-
 export default {
   name: 'AdminTable',
   props: {
     headers: {
       type: Array,
       default: () => []
-    }
-  },
-  setup() {
-    return {
-      uid
     }
   }
 }
@@ -44,11 +37,10 @@ export default {
     }
 
     thead {
-      border-bottom: 1px solid $gray-200;
-
       th {
-        font-size: 120%;
         color: $black;
+        line-height: 1.25;
+        vertical-align: middle;
         border: 0;
       }
 
@@ -84,13 +76,29 @@ export default {
     th,
     td {
       vertical-align: middle;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
 
       &:first-child {
         width: 65px;
       }
+    }
+
+    th {
+      background-color: $gray-200;
+      overflow: hidden;
+
+      &:first-child {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+      }
+    }
+
+    td {
+      overflow: hidden;
 
       p {
         margin: 0;

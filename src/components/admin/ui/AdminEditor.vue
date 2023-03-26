@@ -23,5 +23,3 @@ export default {
   emits: ['update:modelValue']
 }
 </script>
-
-<style lang="scss"></style>

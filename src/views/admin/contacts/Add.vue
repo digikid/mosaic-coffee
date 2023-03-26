@@ -1,17 +1,15 @@
 <template>
-  <AppSection title="Добавить контакт" id="add" back>
+  <AdminSection title="Добавить контакт" id="add" back>
     <AdminContactsEdit />
-  </AppSection>
+  </AdminSection>
 </template>
 
 <script>
-import AppSection from '@/components/ui/AppSection'
+import AdminSection from '@/components/admin/ui/AdminSection'
 import AdminContactsEdit from '@/components/admin/modules/contacts/AdminContactsEdit'
 
 export default {
   name: 'Add',
-  components: { AdminContactsEdit, AppSection }
+  components: { AdminContactsEdit, AdminSection }
 }
 </script>
-
-<style lang="scss"></style>

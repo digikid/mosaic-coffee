@@ -1,4 +1,4 @@
-import { getRawDate } from '@/utils/format/date'
+import { getRawDate } from '@/utils/date'
 
 export const sortByDate = (arr, reverse) =>
   arr.sort(

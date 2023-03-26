@@ -14,9 +14,13 @@ const codes = {
   ADD_FAILED: 'При добавлении элемента произошла ошибка',
   UPDATE_FAILED: 'При сохранении элемента произошла ошибка',
   REMOVE_FAILED: 'При удалении элемента произошла ошибка',
+  REMOVE_ALL_FAILED: 'При удалении элементов произошла ошибка',
   ADD_SUCCESS: 'Элемент добавлен',
   UPDATE_SUCCESS: 'Элемент сохранен',
+  PATCH_SUCCESS: 'Элементы обновлены',
+  PATCH_FAILED: 'Не удалось обновить элементы',
   REMOVE_SUCCESS: 'Элемент удален',
+  REMOVE_ALL_SUCCESS: 'Все элементы удалены',
   UPLOADER_IMAGE_SIZE: 'Размер изображения превышает лимит в',
   UPLOADER_FILE_EXIST: 'Изображение с таким именем уже загружено',
   UPLOADER_CONNECTION_FAILED:
@@ -33,11 +37,19 @@ const codes = {
   USERS_ADD_SUCCESS: 'Пользователь добавлен',
   USERS_UPDATE_SUCCESS: 'Пользователь сохранен',
   USERS_REMOVE_SUCCESS: 'Пользователь удален',
-  ACCESS_DENIED: 'Доступ закрыт'
+  ACCESS_DENIED: 'Доступ закрыт',
+  FILE_READER_INVALID_TYPE:
+    'Файл не может быть прочитан, так как его тип не поддерживается',
+  FILE_READER_INVALID_EXTENSION:
+    'Файл не может быть прочитан, так как его разрешение не поддерживается'
 }
 
-export const message = code => {
+export const message = (code, module = '') => {
   if (!code) return ''
 
-  return codes[code.toUpperCase()] || code
+  return (
+    codes[`${module.toUpperCase()}_${code.toUpperCase()}`] ||
+    codes[code.toUpperCase()] ||
+    code
+  )
 }

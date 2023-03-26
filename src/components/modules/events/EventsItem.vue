@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { getSeparatedDate } from '@/utils/format/date'
+import { getSeparatedDate } from '@/utils/date'
 
 import AppImage from '@/components/ui/AppImage'
 

@@ -88,6 +88,7 @@ export default {
   input[type='email'],
   input[type='password'],
   input[type='number'],
+  input[type='time'],
   textarea,
   select {
     @extend %input;
@@ -95,10 +96,6 @@ export default {
     &:focus {
       border-color: $blue;
     }
-
-    //&:not(:valid):not(:placeholder-shown) {
-    //  border-color: $red !important;
-    //}
   }
 
   input,
@@ -136,10 +133,12 @@ export default {
     border-radius: 6px;
 
     &:before {
-      @include triangle($border-color: $gray-400);
       position: absolute;
       right: 15px;
-      top: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+
+      @include triangle($border-color: $gray-400);
     }
   }
 

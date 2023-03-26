@@ -10,7 +10,32 @@ export const manageStoreHooks = module => {
 
   const { remove: removeThumb } = useStorage()
 
-  const items = computed(() => store.getters[`${module}/items`])
+  const items = computed(() => {
+    return (store.getters[`${module}/items`] || []).sort((a, b) => {
+      if ([a, b].every(({ createDt }) => createDt)) {
+        if (a.createDt > b.createDt) {
+          return 1
+        }
+
+        if (b.createDt > a.createDt) {
+          return -1
+        }
+      }
+
+      if ([a, b].every(item => 'order' in item)) {
+        if (a.order > b.order) {
+          return 1
+        }
+
+        if (b.order > a.order) {
+          return -1
+        }
+      }
+
+      return 0
+    })
+  })
+
   const empty = computed(() => store.getters[`${module}/empty`])
 
   const published = computed(() =>
@@ -31,6 +56,10 @@ export const manageStoreHooks = module => {
     await store.dispatch(`${module}/remove`, id)
   }
 
+  const removeAll = async (silent = false) => {
+    await store.dispatch(`${module}/removeAll`, silent)
+  }
+
   const get = id => store.getters[`${module}/get`](id) || empty.value
 
   const edit = id => router.push(`/admin/${module}/${id}`)
@@ -44,6 +73,7 @@ export const manageStoreHooks = module => {
     add,
     update,
     remove,
+    removeAll,
     get,
     edit,
     create

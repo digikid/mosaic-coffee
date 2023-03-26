@@ -11,5 +11,3 @@ export default {
   name: 'AdminSettingsAdditional'
 }
 </script>
-
-<style lang="scss"></style>

@@ -9,7 +9,7 @@
     ]"
     :type="submit ? 'submit' : null"
   >
-    {{ text }}
+    <i v-if="icon" :class="`btn__icon icon icon--${icon}`" /> {{ text }}
   </button>
 </template>
 
@@ -22,6 +22,7 @@ export default {
       required: true
     },
     color: String,
+    icon: String,
     submit: Boolean
   }
 }
@@ -29,7 +30,8 @@ export default {
 
 <style lang="scss">
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   max-width: 100%;
   background-color: $blue;
   color: $white;
@@ -40,9 +42,10 @@ export default {
   cursor: pointer;
   border-radius: 5px;
   padding: 12px 24px;
-  @include transition(background);
   outline: 0 !important;
   box-shadow: none !important;
+
+  @include transition(background);
 
   @include hover() {
     color: $white;
@@ -98,6 +101,12 @@ export default {
       color: $text;
       border-color: $text;
     }
+  }
+
+  &__icon {
+    font-size: 110%;
+    vertical-align: middle;
+    margin-right: 8px;
   }
 }
 </style>

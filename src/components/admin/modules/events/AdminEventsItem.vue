@@ -24,7 +24,7 @@
 <script>
 import { ref, watch } from 'vue'
 import { useEvents } from '@/use/store/events'
-import { getLocaleDate } from '@/utils/format/date'
+import { getLocaleDate } from '@/utils/date'
 
 import AdminAction from '@/components/admin/ui/AdminAction'
 import AdminSwitcher from '@/components/admin/ui/AdminSwitcher'
@@ -67,5 +67,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss"></style>

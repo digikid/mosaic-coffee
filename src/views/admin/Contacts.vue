@@ -1,22 +1,28 @@
 <template>
-  <AppSection title="Контакты" id="contacts">
-    <AdminContactsList />
+  <AdminSection title="Контакты" id="contacts">
+    <template #default="{ limit, searchQuery }">
+      <AdminContactsList :limit="limit" :searchQuery="searchQuery" />
+    </template>
     <template #actions>
       <AppButton color="green" text="+ Добавить" @click="create" />
     </template>
-  </AppSection>
+  </AdminSection>
 </template>
 
 <script>
 import { useContacts } from '@/use/store/contacts'
 
-import AppSection from '@/components/ui/AppSection'
+import AdminSection from '@/components/admin/ui/AdminSection'
 import AppButton from '@/components/ui/AppButton'
 import AdminContactsList from '@/components/admin/modules/contacts/AdminContactsList'
 
 export default {
   name: 'Contacts',
-  components: { AdminContactsList, AppButton, AppSection },
+  components: {
+    AdminContactsList,
+    AppButton,
+    AdminSection
+  },
   setup() {
     const { create } = useContacts()
 
@@ -26,5 +32,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss"></style>

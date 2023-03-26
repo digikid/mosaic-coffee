@@ -1,17 +1,15 @@
 <template>
-  <AppSection title="Добавить партнера" id="add" back>
+  <AdminSection title="Добавить партнера" id="add" back>
     <AdminPartnersEdit />
-  </AppSection>
+  </AdminSection>
 </template>
 
 <script>
-import AppSection from '@/components/ui/AppSection'
+import AdminSection from '@/components/admin/ui/AdminSection'
 import AdminPartnersEdit from '@/components/admin/modules/partners/AdminPartnersEdit'
 
 export default {
   name: 'Add',
-  components: { AdminPartnersEdit, AppSection }
+  components: { AdminPartnersEdit, AdminSection }
 }
 </script>
-
-<style lang="scss"></style>

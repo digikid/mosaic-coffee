@@ -12,5 +12,3 @@ export default {
   components: { TheFooter, TheMain }
 }
 </script>
-
-<style lang="scss"></style>

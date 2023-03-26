@@ -30,6 +30,7 @@
             type="text"
             class="form__input"
             required
+            maxlength="18"
             v-model.trim="item.password"
           />
         </div>
@@ -127,5 +128,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss"></style>

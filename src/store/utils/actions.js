@@ -1,14 +1,8 @@
 import db from '@/api/db'
 
-import { toast } from '@/utils/system/toast'
-import { message } from '@/utils/system/message'
+import { success, error } from '@/utils/system/toast'
 import { access } from '@/store/utils/access'
-
-const success = (module, code) =>
-  toast.success(message(`${module === 'settings' ? 'SETTINGS_' : ''}${code}`))
-
-const error = (module, code) =>
-  toast.error(message(`${module === 'settings' ? 'SETTINGS_' : ''}${code}`))
+import { getTimestamp } from '@/utils/date'
 
 export const manageStoreActions = module => {
   const load = async ({ commit }) => {
@@ -28,93 +22,123 @@ export const manageStoreActions = module => {
     } catch (e) {
       commit('load', [])
 
-      error(module, 'LOADING_FAILED')
+      error('LOADING_FAILED', module)
     }
   }
 
-  const add = async ({ commit }, payload) => {
-    if (!payload) return
+  const patch = async ({ commit, state }, payload) => {
+    if (payload && (await access(module, 'edit'))) {
+      const items = [...state.items, ...payload]
+      const data = {}
 
-    if (!access(module, 'edit')) {
-      error(module, 'ACCESS_DENIED')
+      items.forEach(item => {
+        const { id, ...meta } = item
 
-      return
-    }
+        data[id] = meta
+      })
 
-    const item = payload
+      try {
+        await db.patch(`/${module}.json`, data)
 
-    try {
-      const { data } = await db.post(`/${module}.json`, item)
+        commit('load', items)
 
-      if (data) {
-        commit('add', {
-          id: data.name,
-          ...item
-        })
-
-        success(module, 'ADD_SUCCESS')
-      } else {
-        error(module, 'ADD_FAILED')
+        success('PATCH_SUCCESS', module)
+      } catch (e) {
+        error('PATCH_FAILED', module)
       }
-    } catch (e) {
-      error(module, 'ADD_FAILED')
+    }
+  }
+
+  const add = async ({ commit, state }, payload) => {
+    if (payload && (await access(module, 'edit'))) {
+      if (Array.isArray(payload)) {
+        await patch(
+          { commit, state },
+          payload.map((item, order) => ({
+            createDt: getTimestamp(),
+            order,
+            ...item
+          }))
+        )
+      } else {
+        try {
+          payload.createDt = getTimestamp()
+
+          const { data } = await db.post(`/${module}.json`, payload)
+
+          if (data) {
+            commit('add', {
+              id: data.name,
+              order: state.items.length,
+              ...payload
+            })
+
+            success('ADD_SUCCESS', module)
+          } else {
+            error('ADD_FAILED', module)
+          }
+        } catch (e) {
+          error('ADD_FAILED', module)
+        }
+      }
     }
   }
 
   const update = async ({ commit, state }, payload) => {
-    if (!payload) return
-
-    if (!access(module, 'edit')) {
-      error(module, 'ACCESS_DENIED')
-
-      return
-    }
-
-    try {
+    if (payload && (await access(module, 'edit'))) {
       if (Array.isArray(payload)) {
-        const data = {}
-        const items = [...state.items, ...payload]
-
-        items.forEach(param => {
-          const { id, ...item } = param
-
-          data[id] = item
-        })
-
-        await db.patch(`/${module}.json`, data)
-
-        commit('load', items)
+        await patch(
+          { commit, state },
+          payload.map(item => ({
+            updateDt: getTimestamp(),
+            ...item
+          }))
+        )
       } else {
+        payload.updateDt = getTimestamp()
+
         const { id, ...item } = payload
 
-        await db.patch(`/${module}/${id}.json`, item)
+        try {
+          await db.patch(`/${module}/${id}.json`, item)
 
-        commit('update', payload)
+          commit('update', payload)
+
+          success('UPDATE_SUCCESS', module)
+        } catch (e) {
+          error('UPDATE_FAILED', module)
+        }
       }
-
-      success(module, 'UPDATE_SUCCESS')
-    } catch (e) {
-      error(module, 'UPDATE_FAILED')
     }
   }
 
   const remove = async ({ commit }, id) => {
-    if (!id) return
+    if (id && (await access(module, 'edit'))) {
+      try {
+        await db.delete(`/${module}/${id}.json`)
 
-    if (!access(module, 'edit')) {
-      error(module, 'ACCESS_DENIED')
+        commit('remove', id)
 
-      return
+        success('REMOVE_SUCCESS', module)
+      } catch (e) {
+        error('REMOVE_FAILED', module)
+      }
     }
+  }
 
-    try {
-      await db.delete(`/${module}/${id}.json`)
+  const removeAll = async ({ commit }, silent = false) => {
+    if (await access(module, 'edit')) {
+      try {
+        await db.put(`/${module}.json`, [])
 
-      commit('remove', id)
+        commit('removeAll')
 
-      success(module, 'REMOVE_SUCCESS')
-    } catch (e) {
-      error(module, 'REMOVE_FAILED')
+        if (!silent) {
+          success('REMOVE_ALL_SUCCESS', module)
+        }
+      } catch (e) {
+        error('REMOVE_ALL_FAILED', module)
+      }
     }
   }
 
@@ -122,6 +146,7 @@ export const manageStoreActions = module => {
     load,
     add,
     update,
-    remove
+    remove,
+    removeAll
   }
 }
