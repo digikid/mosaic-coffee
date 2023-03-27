@@ -1,5 +1,5 @@
 <template>
-  <AdminSection id="greetings" title="Приветствия" :pager="hasPager" search>
+  <AdminSection id="greetings" title="Приветствия" pager search>
     <template #toolbar>
       <AdminFileReader
         :extensions="['.txt']"
@@ -24,7 +24,8 @@
       <Transition name="fade">
         <AdminGreetingsAdd v-if="isFormActive" @close="hideForm" />
       </Transition>
-      <AdminGreetingsList :limit="limit" :searchQuery="searchQuery" />
+      <AdminReload v-if="isLoading" />
+      <AdminGreetingsList v-else :limit="limit" :searchQuery="searchQuery" />
     </template>
     <template #actions>
       <AppButton color="green" text="+ Добавить" @click="showForm" />
@@ -33,16 +34,16 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useGreetings } from '@/use/store/greetings'
 import { error } from '@/utils/system/toast'
-import { pageLimit } from '@/config'
 
 import AdminSection from '@/components/admin/ui/AdminSection'
 import AdminGreetingsList from '@/components/admin/modules/greetings/AdminGreetingsList'
 import AppButton from '@/components/ui/AppButton'
 import AdminGreetingsAdd from '@/components/admin/modules/greetings/AdminGreetingsAdd'
 import AdminFileReader from '@/components/admin/ui/AdminFileReader.vue'
+import AdminReload from '@/components/admin/ui/AdminReload.vue'
 
 export default {
   name: 'Greetings',
@@ -51,14 +52,14 @@ export default {
     AppButton,
     AdminGreetingsList,
     AdminSection,
-    AdminFileReader
+    AdminFileReader,
+    AdminReload
   },
   setup() {
-    const { items, downloadFile, reloadAll, removeAll } = useGreetings()
+    const { downloadFile, loadFromFile, removeAll } = useGreetings()
 
     const isFormActive = ref()
-
-    const hasPager = computed(() => items.value.length > pageLimit)
+    const isLoading = ref(false)
 
     const showForm = () => {
       isFormActive.value = true
@@ -68,8 +69,14 @@ export default {
       isFormActive.value = false
     }
 
-    const onFileReadSuccess = data => {
-      reloadAll(data)
+    const onFileReadSuccess = async data => {
+      isLoading.value = true
+
+      try {
+        await loadFromFile(data)
+      } catch (e) {}
+
+      isLoading.value = false
     }
 
     const onFileReadError = ({ file, message }) => {
@@ -77,8 +84,8 @@ export default {
     }
 
     return {
+      isLoading,
       isFormActive,
-      hasPager,
       showForm,
       hideForm,
       downloadFile,

@@ -1,7 +1,11 @@
 import { computed } from 'vue'
 import { manageStoreHooks } from '@/utils/store/hooks'
 import { randomNumber } from '@/utils/random'
-import { isPeriodCurrent } from '@/utils/time'
+import {
+  isPeriodCurrent,
+  toTimeString,
+  toCompactTimeString
+} from '@/utils/time'
 import { download } from '@/utils/fs'
 import { getFirebaseUid } from '@/utils/api'
 
@@ -32,29 +36,54 @@ export const useGreetings = () => {
 
   const downloadFile = () => {
     const data = [...items.value]
-      .map(({ text }) =>
-        text
+      .map(({ text, startTime, endTime }) => {
+        let str = text
           .replace(/(\r\n|\n|\r)/gm, ' ')
           .replace(/ +(?= )/g, '')
           .trim()
-      )
+
+        if (startTime) {
+          str += `#${toCompactTimeString(startTime)}`
+        }
+
+        if (endTime) {
+          str += `#${toCompactTimeString(endTime)}`
+        }
+
+        return str
+      })
       .join('\n')
 
     download('greetings.txt', data)
   }
 
-  const reloadAll = async data => {
+  const loadFromFile = async data => {
     const items = data
       .split('\n')
-      .filter(item => Boolean(item.trim()))
-      .map(item => ({
-        ...empty.value,
-        id: getFirebaseUid(),
-        text: item
+      .filter(str => Boolean(str.trim()))
+      .map(str => {
+        const [text, rawStartTime, rawEndTime] = str
           .trim()
           .replace(/(\r\n|\n|\r)/gm, ' ')
           .replace(/ +(?= )/g, '')
-      }))
+          .split('#')
+
+        const item = {
+          ...empty.value,
+          id: getFirebaseUid(),
+          text
+        }
+
+        if (rawStartTime) {
+          item.startTime = toTimeString(rawStartTime)
+        }
+
+        if (rawEndTime) {
+          item.endTime = toTimeString(rawEndTime)
+        }
+
+        return item
+      })
 
     await removeAll(true)
 
@@ -69,6 +98,6 @@ export const useGreetings = () => {
     published,
     random,
     downloadFile,
-    reloadAll
+    loadFromFile
   }
 }

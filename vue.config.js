@@ -12,7 +12,10 @@ module.exports = {
         sassOptions: {
           quietDeps: true
         },
-        additionalData: '@import "@/assets/styles/_partials.scss";'
+        additionalData: `
+          @use 'sass:math';
+          @import '@/assets/styles/_partials.scss';
+        `
       }
     }
   }
